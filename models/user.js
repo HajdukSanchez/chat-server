@@ -21,4 +21,11 @@ const UserSchema = Schema({
   },
 })
 
+// We obtaine the output of the Model for send to the user
+UserSchema.method('toJSON', function () {
+  const { __v, _id, password, ...object } = this.toObject() // We extract the object created by mongoose
+  object.uid = _id // We rename the uid
+  return object
+})
+
 module.exports = model('User', UserSchema)
