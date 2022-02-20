@@ -4,7 +4,6 @@ const sendServerError = (resp = response, message = 'Error in the server, contac
   return resp.status(500).json({
     ok: false,
     message: message,
-    body: {},
   })
 }
 
@@ -12,7 +11,6 @@ const sendBadRequest = (resp = response, message = 'Bad request') => {
   return resp.status(400).json({
     ok: false,
     message: message,
-    body: {},
   })
 }
 
@@ -20,7 +18,13 @@ const sendNotFound = (resp = response, message = 'Not found') => {
   return resp.status(404).json({
     ok: false,
     message: message,
-    body: {},
+  })
+}
+
+const sendUnAuthorized = (resp = response, message = 'Unauthorized, not token provided') => {
+  return resp.status(401).json({
+    ok: false,
+    message: message,
   })
 }
 
@@ -28,4 +32,5 @@ module.exports = {
   sendServerError,
   sendBadRequest,
   sendNotFound,
+  sendUnAuthorized,
 }
