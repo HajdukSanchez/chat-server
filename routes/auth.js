@@ -6,7 +6,7 @@ const { Router } = require('express')
 const { check } = require('express-validator')
 
 const router = Router()
-const { createUser } = require('../controllers/auth')
+const { createUser, login } = require('../controllers/auth')
 const { validateFields } = require('../middlewares/validate-fields')
 
 // The second arguments are the middelwares that will be applied to the route.
@@ -20,5 +20,7 @@ router.post(
   ],
   createUser
 )
+
+router.post('/', [check('email', 'Email format is not valid').isEmail(), check('password', 'Password is required').not().isEmpty()], login)
 
 module.exports = router
