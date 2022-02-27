@@ -59,10 +59,23 @@ const login = async (req = request, res = response) => {
 }
 
 const renovateJWT = async (req = request, res = response) => {
-  res.json({
-    ok: true,
-    message: req.uid,
-  })
+  // This 'req.uid' comes from 'validateJWT' middleware
+  const uid = req.uid
+
+  try {
+    const token = await generateJWT(uid)
+    const userDB = await User.findById(uid)
+    console.log(userDB)
+
+    res.json({
+      ok: true,
+      message: 'JWT renovated',
+      body: userDB,
+      token,
+    })
+  } catch (error) {
+    sendServerError(res)
+  }
 }
 
 module.exports = {
