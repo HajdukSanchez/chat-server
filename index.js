@@ -19,6 +19,7 @@ app.use(express.static(publicPath)) // We serve public folder
 
 // Routes
 app.use('/api/login', require('./routes/auth'))
+app.use('/api/users', require('./routes/user'))
 
 // We start the server on the port 3000
 server.listen(process.env.PORT, (error) => {
