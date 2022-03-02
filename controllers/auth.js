@@ -22,7 +22,7 @@ const createUser = async (req = request, res = response) => {
     res.json({
       ok: true,
       message: 'User created',
-      body: newUser,
+      user: newUser,
       token,
     })
   } catch (error) {
@@ -50,7 +50,7 @@ const login = async (req = request, res = response) => {
     res.json({
       ok: true,
       message: 'User login',
-      body: userDB,
+      user: userDB,
       token,
     })
   } catch (error) {
@@ -65,12 +65,11 @@ const renovateJWT = async (req = request, res = response) => {
   try {
     const token = await generateJWT(uid)
     const userDB = await User.findById(uid)
-    console.log(userDB)
 
     res.json({
       ok: true,
       message: 'JWT renovated',
-      body: userDB,
+      user: userDB,
       token,
     })
   } catch (error) {

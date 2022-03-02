@@ -21,6 +21,16 @@ const generateJWT = (uid) => {
   })
 }
 
+const findOutJWT = (token = '') => {
+  try {
+    const { uid } = jwt.verify(token, process.env.JWT_KEY) // Decode the token and get the uid from the payload
+    return [true, uid]
+  } catch (error) {
+    return [false, error]
+  }
+}
+
 module.exports = {
   generateJWT,
+  findOutJWT,
 }
