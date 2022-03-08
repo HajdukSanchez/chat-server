@@ -15,8 +15,8 @@ server.on(CONNECT, (client) => {
   // Connect user to a specific room
   client.join(uid)
 
-  client.on(CHAT_MESSAGE, (payload) => {
-    console.log(payload)
+  client.on(CHAT_MESSAGE, ({ from, to, message }) => {
+    server.to(to).emit(CHAT_MESSAGE, { from, to, message })
   })
 
   // ON is for listening to the client
