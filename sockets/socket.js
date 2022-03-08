@@ -1,7 +1,7 @@
 const { io: server } = require('../index')
 const { CONNECT, DISCONNECT, CHAT_MESSAGE } = require('../types/global.types')
 const { findOutJWT } = require('../helpers/jwt')
-const { userConnected, userDisconnected } = require('../controllers/socket')
+const { userConnected, userDisconnected, saveMessage } = require('../controllers/socket')
 
 // Socket messages
 server.on(CONNECT, (client) => {
@@ -15,8 +15,9 @@ server.on(CONNECT, (client) => {
   // Connect user to a specific room
   client.join(uid)
 
-  client.on(CHAT_MESSAGE, ({ from, to, message }) => {
-    server.to(to).emit(CHAT_MESSAGE, { from, to, message })
+  client.on(CHAT_MESSAGE, async (payload) => {
+    await saveMessage(payload)
+    server.to(payload['to']).emit(CHAT_MESSAGE, payload)
   })
 
   // ON is for listening to the client

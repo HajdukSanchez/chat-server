@@ -3,12 +3,12 @@ const { Schema, model } = require('mongoose')
 const MessageSchema = Schema(
   {
     from: {
-      type: Schema.types.ObjectId, // Hace referencia a que este campo es un ObjectId existente dentro de la base de datos
+      type: Schema.Types.ObjectId, // Hace referencia a que este campo es un ObjectId existente dentro de la base de datos
       ref: 'User', // Se inidca la referencia de la collección con la que comparará el Type
       required: true,
     },
-    from: {
-      type: Schema.types.ObjectId,
+    to: {
+      type: Schema.Types.ObjectId,
       ref: 'User',
       required: true,
     },
